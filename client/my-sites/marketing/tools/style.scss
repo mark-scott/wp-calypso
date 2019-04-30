@@ -125,5 +125,14 @@
 		.button {
 			margin: 0 0 0 1em;
 		}
+
+		.purchase-detail__button {
+			float: right;
+		}
+
+		.google-voucher__setup-google-adwords.purchase-detail__button:not( .is-compact ) {
+			margin-top: 27px;
+		}
 	}
 }
+
