@@ -11,6 +11,7 @@ import { useTranslate } from 'i18n-calypso';
  */
 import Button from 'components/button';
 import { getSelectedSiteSlug } from 'state/ui/selectors';
+import GoogleAdwordsCard from './google-adwords';
 import MarketingToolsFeature from './feature';
 import MarketingToolsGoogleMyBusinessFeature from './google-my-business-feature';
 import MarketingToolsHeader from './header';
@@ -62,7 +63,7 @@ export const MarketingTools: FunctionComponent< Props > = ( {
 
 			<div className="tools__feature-list">
 				<MarketingToolsFeature
-					title={ translate( 'Get social, and share your blog posts where the people are' ) }
+					title={ translate( 'Advertise with your $100 Google Adwords credit' ) }
 					description={ translate(
 						"Use your site's Publicize tools to connect your site and your social media accounts, and share your new posts automatically. Connect to Twitter, Facebook, LinkedIn, and more."
 					) }
@@ -78,7 +79,11 @@ export const MarketingTools: FunctionComponent< Props > = ( {
 					) }
 					imagePath="/calypso/images/illustrations/expert.svg"
 				>
-					<Button onClick={ handleFindYourExpertClick } href={ '/experts/upwork?source=marketingtools' } target="_blank">
+					<Button
+						onClick={ handleFindYourExpertClick }
+						href={ '/experts/upwork?source=marketingtools' }
+						target="_blank"
+					>
 						{ translate( 'Find Your Expert' ) }
 					</Button>
 				</MarketingToolsFeature>
@@ -90,12 +95,18 @@ export const MarketingTools: FunctionComponent< Props > = ( {
 					) }
 					imagePath="/calypso/images/illustrations/branding.svg"
 				>
-					<Button onClick={ handleCreateALogoClick } href={ 'http://logojoy.grsm.io/looka' } target="_blank">
+					<Button
+						onClick={ handleCreateALogoClick }
+						href={ 'http://logojoy.grsm.io/looka' }
+						target="_blank"
+					>
 						{ translate( 'Create A Logo' ) }
 					</Button>
 				</MarketingToolsFeature>
 
 				<MarketingToolsGoogleMyBusinessFeature />
+
+				<GoogleAdwordsCard />
 			</div>
 		</Fragment>
 	);
