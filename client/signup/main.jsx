@@ -172,6 +172,7 @@ class Signup extends React.Component {
 
 		this.checkForCartItems( this.props.signupDependencies );
 		this.recordStep();
+		defer( () => this.preloadNextStep( this.props.stepName ) );
 	}
 
 	UNSAFE_componentWillReceiveProps( nextProps ) {
@@ -182,8 +183,7 @@ class Signup extends React.Component {
 		if ( this.props.stepName !== stepName ) {
 			this.recordStep( stepName, flowName );
 
-			const nextStep = flows.getNextStepNameInFlow( this.props.flowName, nextProps.stepName );
-			nextStep && asyncLoadStep( nextStep );
+			defer( () => this.preloadNextStep( this.props.stepName ) );
 		}
 
 		if ( stepName === this.state.resumingStep ) {
@@ -300,6 +300,11 @@ class Signup extends React.Component {
 			this.goToNextStep( flowName );
 		}
 	};
+
+	preloadNextStep( stepName ) {
+		const nextStep = flows.getNextStepNameInFlow( this.props.flowName, stepName );
+		nextStep && asyncLoadStep( nextStep );
+	}
 
 	checkForCartItems = signupDependencies => {
 		const dependenciesContainCartItem = dependencies => {
