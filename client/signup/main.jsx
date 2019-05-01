@@ -73,7 +73,7 @@ import { getDomainsBySiteId } from 'state/sites/domains/selectors';
 // Current directory dependencies
 import steps from './config/steps';
 import flows from './config/flows';
-import stepComponents from './config/step-components';
+import { getStepComponent, asyncLoadStep } from './config/step-components';
 import {
 	canResumeFlow,
 	getCompletedSteps,
@@ -181,6 +181,9 @@ class Signup extends React.Component {
 
 		if ( this.props.stepName !== stepName ) {
 			this.recordStep( stepName, flowName );
+
+			const nextStep = flows.getNextStepNameInFlow( this.props.flowName, nextProps.stepName );
+			nextStep && asyncLoadStep( nextStep );
 		}
 
 		if ( stepName === this.state.resumingStep ) {
@@ -534,18 +537,18 @@ class Signup extends React.Component {
 
 	renderCurrentStep() {
 		const domainItem = get( this.props, 'signupDependencies.domainItem', false );
-		const currentStepProgress = find( this.props.progress, { stepName: this.props.stepName } ),
-			CurrentComponent = stepComponents[ this.props.stepName ],
-			propsFromConfig = assign( {}, this.props, steps[ this.props.stepName ].props ),
-			stepKey = this.state.shouldShowLoadingScreen ? 'processing' : this.props.stepName,
-			flow = flows.getFlow( this.props.flowName ),
-			hideFreePlan = !! (
-				this.state.plans ||
-				( ( isDomainRegistration( domainItem ) ||
-					isDomainTransfer( domainItem ) ||
-					isDomainMapping( domainItem ) ) &&
-					this.props.domainsWithPlansOnly )
-			);
+		const currentStepProgress = find( this.props.progress, { stepName: this.props.stepName } );
+		const CurrentComponent = getStepComponent( this.props.stepName );
+		const propsFromConfig = assign( {}, this.props, steps[ this.props.stepName ].props );
+		const stepKey = this.state.shouldShowLoadingScreen ? 'processing' : this.props.stepName;
+		const flow = flows.getFlow( this.props.flowName );
+		const hideFreePlan = !! (
+			this.state.plans ||
+			( ( isDomainRegistration( domainItem ) ||
+				isDomainTransfer( domainItem ) ||
+				isDomainMapping( domainItem ) ) &&
+				this.props.domainsWithPlansOnly )
+		);
 		const shouldRenderLocaleSuggestions = 0 === this.getPositionInFlow() && ! this.props.isLoggedIn;
 
 		return (
