@@ -52,7 +52,8 @@ export function getSiteVerticalPreview( state ) {
 	return get( getSiteVerticalData( state ), 'preview', '' );
 }
 
-export const getSiteVerticalPreviewLastShown = state => get( state, 'signup.siteMockupShown' );
+export const getSiteVerticalPreviewLastShown = state =>
+	get( state, 'signup.siteMockupShown', null );
 
 export const getSiteVerticalPreviewTagline = state => {
 	const { address, phone } = getSiteInformation( state );
