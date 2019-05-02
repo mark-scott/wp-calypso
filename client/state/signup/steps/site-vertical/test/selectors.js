@@ -15,7 +15,6 @@ import {
 	getSiteVerticalIsUserInput,
 	getSiteVerticalPreview,
 	getSiteVerticalPreviewIframeContent,
-	getSiteVerticalPreviewLastShown,
 	getSiteVerticalPreviewTagline,
 	getSiteVerticalParentId,
 } from '../selectors';
@@ -30,7 +29,6 @@ describe( 'selectors', () => {
 
 	const state = {
 		signup: {
-			siteMockupShown: 12345678,
 			steps: {
 				siteInformation: {
 					address: '1604 Wherever Ln',
@@ -105,19 +103,6 @@ describe( 'selectors', () => {
 			expect( getSiteVerticalParentId( state ) ).toEqual(
 				state.signup.steps.siteVertical.parentId
 			);
-		} );
-	} );
-	describe( 'getSiteVerticalPreviewLastShown', () => {
-		test( 'should return on null on empty', () => {
-			expect( getSiteVerticalPreviewLastShown() ).toBe( null );
-		} );
-		test( 'should return on null on null', () => {
-			expect( getSiteVerticalPreviewLastShown( omit( state, 'signup.siteMockupShown' ) ) ).toBe(
-				null
-			);
-		} );
-		test( 'should return signup.siteMockupShown value', () => {
-			expect( getSiteVerticalPreviewLastShown( state ) ).toBe( 12345678 );
 		} );
 	} );
 	describe( 'getSiteVerticalPreviewTagline', () => {

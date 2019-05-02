@@ -19,12 +19,12 @@ import { getSiteType } from 'state/signup/steps/site-type/selectors';
 import {
 	getSiteVerticalPreview,
 	getSiteVerticalPreviewIframeContent,
-	getSiteVerticalPreviewLastShown,
 	getSiteVerticalSlug,
 } from 'state/signup/steps/site-vertical/selectors';
 import { getSiteInformation } from 'state/signup/steps/site-information/selectors';
-import { updateSiteMockupDisplayAction } from 'state/signup/steps/site-style/actions';
 import { getSiteStyle } from 'state/signup/steps/site-style/selectors';
+import { getSignupSitePreviewLastShown } from 'state/signup/site-preview/selectors';
+import { showSignupSitePreview } from 'state/signup/site-preview/actions';
 import { getSiteStyleOptions, getThemeCssUri } from 'lib/signup/site-styles';
 import { recordTracksEvent } from 'state/analytics/actions';
 import { getLocaleSlug, getLanguage } from 'lib/i18n-utils';
@@ -74,13 +74,10 @@ class SiteMockups extends Component {
 		verticalPreviewContent: {},
 	};
 
-	debouncedUpdateSiteMockupDisplayAction = debounce(
-		this.props.updateSiteMockupDisplayAction,
-		300
-	);
+	debouncedshowSignupSitePreview = debounce( this.props.showSignupSitePreview, 300 );
 
 	componentDidMount() {
-		this.props.updateSiteMockupDisplayAction();
+		this.props.showSignupSitePreview();
 	}
 
 	componentDidUpdate( prevProps ) {
@@ -93,7 +90,7 @@ class SiteMockups extends Component {
 		} = this.props;
 
 		if ( prevProps.verticalPreview !== verticalPreview ) {
-			this.debouncedUpdateSiteMockupDisplayAction();
+			this.debouncedshowSignupSitePreview();
 			return;
 		}
 
@@ -170,7 +167,7 @@ export default connect(
 		return {
 			title: siteInformation.title || translate( 'Your New Website' ),
 			address: siteInformation.address,
-			lastShown: getSiteVerticalPreviewLastShown( state ), // updates memoized selectors
+			lastShown: getSignupSitePreviewLastShown( state ), // updates memoized selectors
 			phone: siteInformation.phone,
 			siteStyle,
 			siteType,
@@ -186,6 +183,6 @@ export default connect(
 	},
 	{
 		recordTracksEvent,
-		updateSiteMockupDisplayAction,
+		showSignupSitePreview,
 	}
 )( SiteMockups );

@@ -15,6 +15,7 @@ import { translate } from 'i18n-calypso';
 import createSelector from 'lib/create-selector';
 import { getVerticals } from 'state/signup/verticals/selectors';
 import { getSiteInformation } from 'state/signup/steps/site-information/selectors';
+import { getSignupSitePreviewLastShown } from 'state/signup/site-preview/selectors';
 import { DEFAULT_VERTICAL_KEY } from 'state/signup/verticals/constants';
 
 const debug = debugFactory( 'calypso:signup:steps:site-vertical:selectors' );
@@ -51,9 +52,6 @@ export function getSiteVerticalData( state ) {
 export function getSiteVerticalPreview( state ) {
 	return get( getSiteVerticalData( state ), 'preview', '' );
 }
-
-export const getSiteVerticalPreviewLastShown = state =>
-	get( state, 'signup.siteMockupShown', null );
 
 export const getSiteVerticalPreviewTagline = state => {
 	const { address, phone } = getSiteInformation( state );
@@ -99,7 +97,7 @@ export const getSiteVerticalPreviewIframeContent = createSelector(
 			tagline: getSiteVerticalPreviewTagline( state ),
 		};
 	},
-	state => [ getSiteInformation( state ), getSiteVerticalPreviewLastShown( state ) ]
+	state => [ getSiteInformation( state ), getSignupSitePreviewLastShown( state ) ]
 );
 
 // TODO: All the following selectors will be updated to use getSiteVerticalData like getSiteVerticalPreview() does.

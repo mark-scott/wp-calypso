@@ -38,7 +38,6 @@ import {
 } from 'state/signup/steps/site-vertical/selectors';
 import { setSiteVertical } from 'state/signup/steps/site-vertical/actions';
 import hasInitializedSites from 'state/selectors/has-initialized-sites';
-import { updateSiteMockupDisplayAction } from 'state/signup/steps/site-style/actions';
 
 //Form components
 import Card from 'components/card';
@@ -629,6 +628,5 @@ export default connect(
 		setUserExperience,
 		recordTracksEvent,
 		setSiteVertical,
-		updateSiteMockupDisplayAction,
 	}
 )( localize( AboutStep ) );
