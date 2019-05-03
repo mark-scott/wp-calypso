@@ -106,8 +106,6 @@ export const MarketingTools: FunctionComponent< Props > = ( {
 
 				<MarketingToolsGoogleMyBusinessFeature />
 
-				<GoogleAdwordsCard />
-
 				<MarketingToolsGoogleAdwordsFeature />
 			</div>
 		</Fragment>
