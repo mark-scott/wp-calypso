@@ -24,7 +24,6 @@ import isSiteUpgradeable from 'state/selectors/is-site-upgradeable';
 import { getSelectedSite, getSelectedSiteId, getSelectedSiteSlug } from 'state/ui/selectors';
 import QueryProductsList from 'components/data/query-products-list';
 import { getProductsList } from 'state/products-list/selectors';
-import { parseTwoDigitYear } from 'moment';
 
 const wpcom = wp.undocumented();
 
@@ -104,7 +103,7 @@ export class MapDomain extends Component {
 
 	componentWillReceiveProps( nextProps ) {
 		this.checkSiteIsUpgradeable( nextProps );
-		this.checkIfDomainIsTransferrable( nextProps );
+		this.checkIfDomainIsMappable( nextProps );
 	}
 
 	checkSiteIsUpgradeable( props ) {
@@ -113,9 +112,9 @@ export class MapDomain extends Component {
 		}
 	}
 
-	checkIfDomainIsTransferrable( props ) {
+	checkIfDomainIsMappable( props ) {
 		if ( props.lastDomainStatus === 'transferrable' ) {
-			//page.redirect( '/checkout' );
+			this.handleMapDomain( this.props.initialQuery );
 		}
 	}
 
