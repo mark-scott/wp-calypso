@@ -191,6 +191,14 @@ export default {
 			variantUXImprovements: 50,
 		},
 		defaultVariation: 'control',
+	},
+	showCheckoutCartRight: {
+		datestamp: '20190502',
+		variations: {
+			right: 50,
+			original: 50,
+		},
+		defaultVariation: 'right',
 		allowExistingUsers: true,
 	},
 };
