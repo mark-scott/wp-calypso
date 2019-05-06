@@ -12,6 +12,7 @@ import { localize } from 'i18n-calypso';
 /**
  * Internal dependencies
  */
+import config from 'config';
 import DocumentHead from 'components/data/document-head';
 import HelpButton from './help-button';
 import JetpackConnectHappychatButton from './happychat-button';
@@ -95,6 +96,10 @@ class Plans extends Component {
 
 	redirectToCalypso() {
 		const { canPurchasePlans, selectedSiteSlug } = this.props;
+
+		if ( selectedSiteSlug && canPurchasePlans && config.isEnabled( 'jetpack/checklist' ) ) {
+			return this.redirect( CALYPSO_MY_PLAN_PAGE, { 'thank-you': '' } );
+		}
 
 		if ( selectedSiteSlug && canPurchasePlans ) {
 			// Redirect to "My Plan" page with the "Jetpack Basic Tour" guided tour enabled.
