@@ -24,6 +24,7 @@ import isSiteUpgradeable from 'state/selectors/is-site-upgradeable';
 import { getSelectedSite, getSelectedSiteId, getSelectedSiteSlug } from 'state/ui/selectors';
 import QueryProductsList from 'components/data/query-products-list';
 import { getProductsList } from 'state/products-list/selectors';
+import { domainAvailability } from 'lib/domains/constants';
 
 const wpcom = wp.undocumented();
 
@@ -113,7 +114,7 @@ export class MapDomain extends Component {
 	}
 
 	checkIfDomainIsMappable( props ) {
-		if ( props.lastDomainStatus === 'transferrable' ) {
+		if ( props.lastDomainStatus === domainAvailability.TRANSFERRABLE ) {
 			this.handleMapDomain( this.props.initialQuery );
 		}
 	}
