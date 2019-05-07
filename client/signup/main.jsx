@@ -163,12 +163,11 @@ class Signup extends React.Component {
 			);
 		}
 
-		this.checkForCartItems( this.props.signupDependencies );
 		this.recordStep();
 	}
 
 	UNSAFE_componentWillReceiveProps( nextProps ) {
-		const { signupDependencies, stepName, flowName, progress } = nextProps;
+		const { stepName, flowName, progress } = nextProps;
 
 		this.removeFulfilledSteps( nextProps );
 
@@ -191,8 +190,6 @@ class Signup extends React.Component {
 		if ( ! this.state.controllerHasReset && ! isEqual( this.props.progress, progress ) ) {
 			this.updateShouldShowLoadingScreen( progress );
 		}
-
-		this.checkForCartItems( signupDependencies );
 	}
 
 	componentWillUnmount() {
